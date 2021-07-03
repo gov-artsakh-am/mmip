@@ -1,4 +1,9 @@
-/* TODO remove on start */
-div {
-    background-color: red;
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
