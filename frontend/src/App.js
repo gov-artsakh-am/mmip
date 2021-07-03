@@ -1,8 +1,8 @@
-import React from "react";
-import { Route, Switch } from "react-router";
+import React from 'react';
+import { Route, Switch } from 'react-router';
 
-import "./App.css";
-import Auth from "./pages/Auth/Auth";
+import './App.css';
+import Auth from './pages/Auth/Auth';
 
 const App = () => {
   const routes = (

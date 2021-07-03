@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 function toDelete() {
-    return {};
+  return {};
 }
 
 export default combineReducers({
-    toDelete,
+  toDelete,
 });
