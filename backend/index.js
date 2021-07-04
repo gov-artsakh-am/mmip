@@ -6,18 +6,18 @@ const app = express();
 const db = require("./models");
 
 // During development
-db.sequelize.sync({force: false}).then(() => {
+db.sequelize.sync({force: true}).then(() => {
   console.log("Drop and re-sync db.");
-  // db.users.create({
-  //   ssn: 'admin',
-  //   password: '21232f297a57a5a743894a0e4a801fc3',
-  //   roleId: 1,
-  // });
-  // db.users.create({
-  //   ssn: 'user',
-  //   password: 'ee11cbb19052e40b07aac0ca060c23ee',
-  //   roleId: 2,
-  // });
+  db.users.create({
+    ssn: '1111111111',
+    password: '21232f297a57a5a743894a0e4a801fc3',
+    roleId: 1,
+  });
+  db.users.create({
+    ssn: '2222222222',
+    password: 'ee11cbb19052e40b07aac0ca060c23ee',
+    roleId: 2,
+  });
 });
 
 const corsOptions = {

@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true
     },
     ssn: {
-      type: Sequelize.STRING(45),
+      type: Sequelize.STRING(10),
       allowNull: false
     },
     password: {
