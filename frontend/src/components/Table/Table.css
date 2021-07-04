@@ -1,0 +1,9 @@
+.flexContainer {
+    display: flex;
+    align-items: center;
+}
+
+.roundedImage {
+    border-radius: 50%;
+    margin-right: 10px;
+}

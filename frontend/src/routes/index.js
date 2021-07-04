@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
 
 import Auth from '../pages/Auth/Auth';
+import Population from '../pages/Population/Population';
 import AppSidebar from '../components/AppSidebar/AppSidebar';
 import AppBarMenu from '../components/AppBarMenu/AppBarMenu';
 import AppDrawer from '../components/AppDrawer/AppDrawer';
@@ -47,7 +48,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 function Routes() {
   return (
     <Switch>
-      <PrivateRoute exact path="/population" component={CommingSoon} />
+      <PrivateRoute exact path="/population" component={Population} />
       <PrivateRoute exact path="/family" component={CommingSoon} />
       <PrivateRoute exact path="/community" component={CommingSoon} />
       <Route path="/" component={Auth} />

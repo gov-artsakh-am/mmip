@@ -9,6 +9,7 @@ const menuItems = {
   '/population': 'Բնակչություն',
   '/family': 'Ընտանիք',
   '/community': 'Համայնք',
+  '/housing': 'Բնակ ֆոնդ',
 };
 
 const AppSidebar = ({ onSelect = () => {} }) => {
