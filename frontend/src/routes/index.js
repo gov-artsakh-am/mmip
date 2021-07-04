@@ -8,6 +8,10 @@ import AppBarMenu from '../components/AppBarMenu/AppBarMenu';
 import AppDrawer from '../components/AppDrawer/AppDrawer';
 import './Routes.css';
 
+function CommingSoon() {
+  return (<div>Comming Soon</div>);
+};
+
 function PrivateRoute({ component: Component, ...rest }) {
   const sm = useMediaQuery('(max-width: 600px)', { noSsr: true });
   const [selectedItem, setSelectedItem] = useState(0);
@@ -43,9 +47,9 @@ function PrivateRoute({ component: Component, ...rest }) {
 function Routes() {
   return (
     <Switch>
-      <PrivateRoute exact path="/population" component={Auth} />
-      <PrivateRoute exact path="/family" component={Auth} />
-      <PrivateRoute exact path="/community" component={Auth} />
+      <PrivateRoute exact path="/population" component={CommingSoon} />
+      <PrivateRoute exact path="/family" component={CommingSoon} />
+      <PrivateRoute exact path="/community" component={CommingSoon} />
       <Route path="/" component={Auth} />
     </Switch>
   );
