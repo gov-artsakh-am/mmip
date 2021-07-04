@@ -1,11 +1,11 @@
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import Api from './utils/Api';
+
 import './App.css';
 import AppSidebar from './components/AppSidebar/AppSidebar';
-import Auth from './pages/Auth/Auth';
 import AppBarMenu from './components/AppBarMenu/AppBarMenu';
+import PersonInfo from './pages/PersonInfo/PersonInfo';
 import AppDrawer from './components/AppDrawer/AppDrawer';
 
 const App = () => {
@@ -14,17 +14,18 @@ const App = () => {
 
   const routes = (
     <Switch>
-      <Route path="/" component={Auth} />
+      <Route path="/" component={PersonInfo} />
       <Redirect to="/" />
     </Switch>
   );
-  Api.post('api/auth/signin/', { ssn: 'user', password: 'user'}, (data) => {
-    localStorage.setItem('token', data.accessToken);
-    setTimeout(() => {
-      Api.get('api/main/', { table: 'Համայնք' }, (data1)  => {
-      console.log(data1, '=[======')
-    });}, 1000);
-  })
+  // Api.post("api/auth/signin/", { ssn: "user", password: "user" }, (data) => {
+  //   localStorage.setItem("token", data.accessToken);
+  //   setTimeout(() => {
+  //     Api.get("api/main/", { table: "Համայնք" }, (data1) => {
+  //       console.log(data1, "=[======");
+  //     });
+  //   }, 1000);
+  // });
 
   return (
     <div className="App">
