@@ -3,7 +3,7 @@ const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.users;
 
-verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
@@ -19,11 +19,12 @@ verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.id;
+    req.apiKey = decoded.apiKey;
     next();
   });
 };
 
-isAdmin = (req, res, next) => {
+const isAdmin = (req, res, next) => {
   const adminRole = 1;
   User.findByPk(req.userId).then(user => {
     if (user.role === adminRole) {

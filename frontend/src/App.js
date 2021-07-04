@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-
+import Api from './utils/Api';
 import './App.css';
 import AppSidebar from './components/AppSidebar/AppSidebar';
 import Auth from './pages/Auth/Auth';
@@ -18,6 +18,13 @@ const App = () => {
       <Redirect to="/" />
     </Switch>
   );
+  Api.post('api/auth/signin/', { username: 'user', password: 'user'}, (data) => {
+    localStorage.setItem('token', data.accessToken);
+    setTimeout(() => {
+      Api.get('api/main/', { table: 'Համայնք' }, (data1)  => {
+      console.log(data1, '=[======')
+    });}, 1000);
+  })
 
   return (
     <div className="App">

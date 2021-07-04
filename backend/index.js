@@ -6,18 +6,18 @@ const app = express();
 const db = require("./models");
 
 // During development
-db.sequelize.sync({force: true}).then(() => {
+db.sequelize.sync({force: false}).then(() => {
   console.log("Drop and re-sync db.");
-  db.users.create({
-    username: 'admin',
-    password: '21232f297a57a5a743894a0e4a801fc3',
-    roleId: 1,
-  });
-  db.users.create({
-    username: 'user',
-    password: 'ee11cbb19052e40b07aac0ca060c23ee',
-    roleId: 2,
-  });
+  // db.users.create({
+  //   username: 'admin',
+  //   password: '21232f297a57a5a743894a0e4a801fc3',
+  //   roleId: 1,
+  // });
+  // db.users.create({
+  //   username: 'user',
+  //   password: 'ee11cbb19052e40b07aac0ca060c23ee',
+  //   roleId: 2,
+  // });
 });
 
 const corsOptions = {
@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/auth.routes")(app);
+require("./routes/main.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

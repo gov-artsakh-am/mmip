@@ -1,11 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api.airtable.com/v0/';
+axios.defaults.baseURL = 'http://localhost:8080/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
-/// TODO: change api key to user api
-const API_KEY = 'keyorpixGaKGRLY3up';
+axios.defaults.headers['x-access-token'] = localStorage.getItem('token');
 
 class Api {
   constructor() {
@@ -20,7 +18,6 @@ class Api {
         query += `${key}=${params[key]}&`;
       });
     }
-    query += `api_key=${API_KEY}`;
     return query;
   }
 
@@ -35,11 +32,11 @@ class Api {
   }
 
   buildRequest(method, url, params, success = this.successCallback, error = this.errorCallback) {
-    axios[method](url, params).then(({ data }) => success(data)).catch(error);
+    axios[method](encodeURI(url), params).then(({ data }) => success(data)).catch(error);
   }
 
   get(url, params, success, error) {
-    const query = this.queryParams(params);
+    const query = this.queryParams(params, true);
     this.buildRequest('get', url + query, null, success, error);
   }
 
