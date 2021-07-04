@@ -1,18 +1,19 @@
-const db = require("../models");
-const config = require("../config/auth.config");
-const Users = db.users;
+const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 
-const jwt = require("jsonwebtoken");
-const md5 = require("md5");
+const config = require('../config/auth.config');
+const utils = require('../utils');
+const apiKey = 'keyorpixGaKGRLY3u';
 
 
 exports.signin = (req, res) => {
-  Users.findOne({
-    where: {
-      ssn: req.body.ssn
+  let url = utils.buildRequestUrl('Users');
+  url += `?filterByFormula=({ssn} ='${req.body.ssn}')`;
+  utils.buildRequest(apiKey, 'get', url).then(({ data }) => {
+    if (!data.records[0]) {
+      return res.status(404).send({ message: "User Not found." });
     }
-  })
-    .then(user => {
+    const user = data.records[0].fields;
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
@@ -33,11 +34,11 @@ exports.signin = (req, res) => {
       res.status(200).send({
         id: user.id,
         ssn: user.ssn,
-        name: user.name + ' ' + user.surname,
+        name: ((user.name || '') + ' ' + (user.surname || '')).trim(),
         role: user.role,
         accessToken: token
       });
-    })
+  })
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
