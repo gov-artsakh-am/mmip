@@ -18,7 +18,7 @@ const App = () => {
       <Redirect to="/" />
     </Switch>
   );
-  Api.post('api/auth/signin/', { username: 'user', password: 'user'}, (data) => {
+  Api.post('api/auth/signin/', { ssn: 'user', password: 'user'}, (data) => {
     localStorage.setItem('token', data.accessToken);
     setTimeout(() => {
       Api.get('api/main/', { table: 'Համայնք' }, (data1)  => {

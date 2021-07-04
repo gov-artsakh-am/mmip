@@ -9,12 +9,12 @@ const db = require("./models");
 db.sequelize.sync({force: false}).then(() => {
   console.log("Drop and re-sync db.");
   // db.users.create({
-  //   username: 'admin',
+  //   ssn: 'admin',
   //   password: '21232f297a57a5a743894a0e4a801fc3',
   //   roleId: 1,
   // });
   // db.users.create({
-  //   username: 'user',
+  //   ssn: 'user',
   //   password: 'ee11cbb19052e40b07aac0ca060c23ee',
   //   roleId: 2,
   // });

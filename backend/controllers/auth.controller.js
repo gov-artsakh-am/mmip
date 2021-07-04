@@ -9,7 +9,7 @@ const md5 = require("md5");
 exports.signin = (req, res) => {
   Users.findOne({
     where: {
-      username: req.body.username
+      ssn: req.body.ssn
     }
   })
     .then(user => {
@@ -32,7 +32,7 @@ exports.signin = (req, res) => {
 
       res.status(200).send({
         id: user.id,
-        username: user.username,
+        ssn: user.ssn,
         name: user.name + ' ' + user.surname,
         role: user.role,
         accessToken: token
