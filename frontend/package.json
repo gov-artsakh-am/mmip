@@ -1,5 +1,5 @@
 {
-  "name": "mmis",
+  "name": "mmip",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "lint": "npx eslint ./ -c ./.eslintrc.js",
     "lint:fix": "npx eslint ./ -c ./.eslintrc.js --fix"
   },
-  "author": "MMIS",
+  "author": "ՀԿՏՀ",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "4.11.4",
