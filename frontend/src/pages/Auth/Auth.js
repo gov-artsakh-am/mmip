@@ -1,9 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import "./Auth.css";
+import './Auth.css';
 
-const Auth = () => {
-  return <div className="Auth"></div>;
-};
+const Auth = () => <div className="Auth" />;
 
 export default Auth;

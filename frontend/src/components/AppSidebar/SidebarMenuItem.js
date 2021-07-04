@@ -1,25 +1,32 @@
-import React from "react";
-import { Typography } from "@material-ui/core";
-import "./AppSidebar.css";
+import React from 'react';
+import { Typography } from '@material-ui/core';
+import './AppSidebar.css';
 
 const SidebarMenuItem = ({
   children,
   selected = false,
   onClick = () => {},
+  tabIndex = 0,
 }) => {
-  const classes = ["sidebarMenuItem"];
-  const textClasses = ["sidebarMenuItemText"];
+  const classes = ['sidebarMenuItem'];
+  const textClasses = ['sidebarMenuItemText'];
 
   if (selected) {
-    classes.push("sidebarMenuItemSelected");
-    textClasses.push("sidebarMenuItemSelectedText");
+    classes.push('sidebarMenuItemSelected');
+    textClasses.push('sidebarMenuItemSelectedText');
   }
 
-  const className = classes.join(" ");
-  const textClassname = textClasses.join(" ");
+  const className = classes.join(' ');
+  const textClassname = textClasses.join(' ');
 
   return (
-    <div className={className} onClick={onClick}>
+    <div
+      className={className}
+      onClick={onClick}
+      onKeyDown={onClick}
+      tabIndex={tabIndex}
+      role="button"
+    >
       <Typography className={textClassname} variant="buttonText">
         {children}
       </Typography>

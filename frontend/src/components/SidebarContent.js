@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const SidebarContent = () => {};
+const SidebarContent = () => <div />;
 
 export default SidebarContent;
