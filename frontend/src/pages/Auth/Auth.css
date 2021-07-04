@@ -1,2 +1,21 @@
 .Auth {
+  height: 100%;
+  width: 100%;
+  background: #3C8BD4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Auth .FormCard {
+  padding: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signInForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
