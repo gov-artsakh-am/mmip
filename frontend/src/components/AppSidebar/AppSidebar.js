@@ -3,6 +3,7 @@ import './AppSidebar.css';
 import { useHistory, useLocation } from 'react-router';
 import appLogoSvg from '../../assets/vectors/appLogo.svg';
 import SidebarMenuItem from './SidebarMenuItem';
+import UserInfo from './UserInfo';
 
 const menuItems = {
   '/population': 'Բնակչություն',
@@ -14,7 +15,7 @@ const AppSidebar = ({ onSelect = () => {} }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const items = Object.keys(menuItems).map((key, index) => (
+  const items = Object.keys(menuItems).map((key) => (
     <SidebarMenuItem
       key={key}
       selected={key === location.pathname}
@@ -22,7 +23,6 @@ const AppSidebar = ({ onSelect = () => {} }) => {
         history.push(`${key}`);
         onSelect();
       }}
-      tabIndex={index}
     >
       {menuItems[key]}
     </SidebarMenuItem>
@@ -38,6 +38,7 @@ const AppSidebar = ({ onSelect = () => {} }) => {
           alt="sidebarLogo"
         />
         {items}
+        <UserInfo firstName="Անուն" lastName="Ազգանուն" />
       </div>
     </>
   );

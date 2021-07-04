@@ -6,7 +6,6 @@ const SidebarMenuItem = ({
   children,
   selected = false,
   onClick = () => {},
-  tabIndex = 0,
 }) => {
   const classes = ['sidebarMenuItem'];
   const textClasses = ['sidebarMenuItemText'];
@@ -24,8 +23,6 @@ const SidebarMenuItem = ({
       className={className}
       onClick={onClick}
       onKeyDown={onClick}
-      tabIndex={tabIndex}
-      role="button"
     >
       <Typography className={textClassname} variant="buttonText">
         {children}

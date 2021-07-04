@@ -34,6 +34,28 @@
   font-weight: bold;
 }
 
+.sidebarMenuItemContainer {
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  cursor: pointer;
+}
+
+.withBorder {
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.userInfoContainer {
+  display: grid;
+  grid-gap: 20px;
+  padding: 0 36px 24px;
+  position: absolute;
+  bottom: 0;
+}
+
 @media only screen and (max-width: 600px) {
   .AppSidebar {
     position: static;
