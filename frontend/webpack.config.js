@@ -1,33 +1,44 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: path.resolve(__dirname, "./src/index.js"),
   module: {
     rules: [
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ["babel-loader"],
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "images/[hash]-[name].[ext]",
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
-    extensions: ['*', '.js'],
+    extensions: ["*", ".js"],
   },
   output: {
-    path: path.resolve(__dirname, './public'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "./public"),
+    filename: "bundle.js",
   },
   watch: true,
   watchOptions: {
-    ignored: '/node_modules/',
+    ignored: "/node_modules/",
   },
   devServer: {
-    contentBase: path.resolve(__dirname, './public'),
+    contentBase: path.resolve(__dirname, "./public"),
     port: 3000,
   },
 };

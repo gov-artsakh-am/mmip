@@ -1,9 +1,40 @@
 html {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+}
+
+.routes {
+  flex-grow: 1;
+}
+
+.leftMargin {
+  width: 300px;
+}
+
+.appContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 600px) {
+  .leftMargin {
+    display: none;
+  }
 }

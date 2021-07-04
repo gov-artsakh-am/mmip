@@ -1,0 +1,41 @@
+.AppSidebar {
+  background-color: #1e1a34;
+  height: 100%;
+  width: 300px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.sidebarLogo {
+  display: block;
+  margin-top: 40px;
+  margin-left: 40px;
+  margin-bottom: 30px;
+}
+
+.sidebarMenuItem {
+  padding: 20px 36px;
+  cursor: pointer;
+}
+
+.sidebarMenuItemSelected {
+  background-color: #3c8bd4;
+  border-right: 3px white solid;
+}
+
+.sidebarMenuItemText {
+  font-size: 20px;
+  color: #c4c4c4;
+}
+
+.sidebarMenuItemSelectedText {
+  color: white;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .AppSidebar {
+    position: static;
+  }
+}

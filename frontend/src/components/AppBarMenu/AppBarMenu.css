@@ -1,0 +1,13 @@
+.AppBarMenu {
+  display: flex;
+  align-items: center;
+}
+
+.appBarMenuAvatar {
+  margin-right: 12px;
+}
+
+.appBarMenuUserName {
+  color: #263238;
+  font-size: 18px;
+}
