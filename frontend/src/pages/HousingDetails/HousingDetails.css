@@ -1,0 +1,44 @@
+.DetailsCard {
+  padding: 24px;
+}
+
+.CardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+}
+
+.CardContent {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+}
+
+.CardCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.CardColItem {
+  width: 420px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Notes {
+  height: inherit !important;
+  margin-top: 24px;
+}
+
+.Bold {
+  font-weight: 600 !important;
+}

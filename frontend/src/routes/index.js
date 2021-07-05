@@ -8,6 +8,7 @@ import Housing from "../pages/Housing/Housing";
 import Family from "../pages/Family/Family";
 import Community from "../pages/Community/Community";
 import CommunityDetails from "../pages/CommunityDetails/CommunityDetails";
+import HousingDetails from "../pages/HousingDetails/HousingDetails";
 import AppSidebar from "../components/AppSidebar/AppSidebar";
 import AppBarMenu from "../components/AppBarMenu/AppBarMenu";
 import AppDrawer from "../components/AppDrawer/AppDrawer";
@@ -61,6 +62,7 @@ function Routes() {
       <PrivateRoute exact path="/population/:id" component={PersonInfo} />
       <PrivateRoute exact path="/family" component={Family} />
       <PrivateRoute exact path="/housing" component={Housing} />
+      <PrivateRoute exact path="/housing/:housingID" component={HousingDetails} />
       <PrivateRoute exact path="/community" component={Community} />
       <PrivateRoute exact path="/community/:id" component={CommunityDetails} />
       <Route path="/" component={Auth} />

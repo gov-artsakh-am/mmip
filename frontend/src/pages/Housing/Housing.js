@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router";
+
 import Table from '../../components/Table/Table';
 import api from '../../utils/Api';
 
 const Housing = () => {
   const [data, setData] = useState([]);
+  const history = useHistory();
   useEffect(() => {
-    api.get('api/main/', { table: 'Բնակավայր' }, ({ records }) => {
+    api.get('api/main/', { table: 'Բնակարան' }, ({ records }) => {
       const housing = records.reduce((acc, { fields, id }) => {
         // acc.push({
         //   id,
@@ -27,10 +30,15 @@ const Housing = () => {
         return acc;
       }, []);
       setData(housing);
+      console.log(housing);
     });
   }, []);
 
-  return <Table data={data} />;
+  const onRowDoubleClick = (id) => {
+    history.push("/housing/" + id);
+  };
+
+  return <Table data={data} onRowDoubleClick={onRowDoubleClick}/>;
 };
 
 export default Housing;
