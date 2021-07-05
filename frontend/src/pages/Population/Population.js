@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '../../components/Table/Table';
 import './Population.css';
-import dummy from '../../assets/vectors/dummy.png';
+import api from '../../utils/Api';
 
-const data = [
-  {
-    id: '123',
-    family: { logo: dummy, label: 'Ազիզյաններ' },
-    members: 'members',
-    hamaynq: 'hamaynq',
-    bnakavayr: 'bnakavayr',
-    address: ['address1', 'address2', 'address3'],
-  },
-  {
-    id: '123',
-    family: { logo: dummy, label: 'Ազիզյաններ' },
-    members: 'members',
-    hamaynq: 'hamaynq',
-    bnakavayr: 'bnakavayr',
-    address: ['address3'],
-  },
-];
+const Population = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    api.get('api/main/', { table: 'Բնակիչ' }, ({ records }) => {
+      const population = records.reduce((acc, { fields }) => {
+        acc.push({
+          ՀԾՀ: fields['ՀԾՀ'] || '',
+          Անուն: fields['Անուն'] || '',
+          Ազգանուն: fields['Ազգանուն'] || '',
+          Հայրանուն: fields['Հայրանուն'] || '',
+          'Ծննդյան տարեթիվ': fields['Ծննդյան օր'] || '',
+          Ընտանիք: fields['Ընտանիք'] || '', // missing
+          'Գրանցման հասցե': fields['Գրանցման հասցե'] || '', // missing
+        });
+        return acc;
+      }, []);
+      setData(population);
+    });
+  }, []);
 
-const Population = () => (
-  <div className="populationContainer">
-    <Table data={data} />
-  </div>
-);
+  return (
+    <div className="populationContainer">
+      <Table data={data} />
+    </div>
+  );
+};
 
 export default Population;
