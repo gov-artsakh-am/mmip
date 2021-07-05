@@ -15,8 +15,11 @@ class Api {
     let query = '?';
     if (get && params) {
       Object.keys(params).forEach((key) => {
-        query += `${key}=${params[key]}&`;
+        query += `&${key}=${params[key]}`;
       });
+    }
+    if (query.length == 1) {
+      return '';
     }
     return query;
   }
