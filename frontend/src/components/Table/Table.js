@@ -37,7 +37,7 @@ const Table = ({
             />
           </TableCell>
           {headCells.map((headCell) => (
-            <TableCell
+            headCell != 'id' && <TableCell
               key={headCell}
               align="left"
               padding="default"
@@ -59,13 +59,13 @@ const Table = ({
             <TableRow
               hover
               onClick={() => handleRowSelect(row)}
-              key={row.name}
+              key={row.id}
               selected={selectedIds[row.id]}
             >
               <TableCell padding="checkbox">
                 <Checkbox checked={row.isSelected} />
               </TableCell>
-              {headCells.map((headCell) => <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
+              {headCells.map((headCell) => headCell != 'id' && <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
             </TableRow>
           ))}
       </TableBody>

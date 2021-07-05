@@ -7,8 +7,9 @@ const Population = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     api.get('api/main/', { table: 'Բնակիչ' }, ({ records }) => {
-      const population = records.reduce((acc, { fields }) => {
+      const population = records.reduce((acc, { fields, id }) => {
         acc.push({
+          id,
           ՀԾՀ: fields['ՀԾՀ'] || '',
           Անուն: fields['Անուն'] || '',
           Ազգանուն: fields['Ազգանուն'] || '',
