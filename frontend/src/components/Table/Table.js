@@ -5,21 +5,39 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { CircularProgress } from '@material-ui/core';
 import Checkbox from './Checkbox';
 
 const Table = ({
-  data, order, orderBy, numSelected, rowCount,
+  data,
+  order,
+  orderBy,
+  numSelected,
+  rowCount,
+  loading = false,
+  onRowDoubleClick,
 }) => {
   const [selectedIds, setSelectedIds] = useState({});
   const [isSelectAll, setIsSelectAll] = useState(false);
   if (!data.length) return null;
+
+  if (loading) {
+    return (
+      <CircularProgress
+        style={{ display: 'block', margin: '0 auto', marginTop: 100 }}
+      />
+    );
+  }
 
   const headCells = Object.keys(data[0]);
 
   const handleRowSelect = (row) => {
     if (isSelectAll) {
       setIsSelectAll(false);
-    } else if (Object.values(selectedIds).filter(Boolean).length === data.length - 1) {
+    } else if (
+      Object.values(selectedIds).filter(Boolean).length
+      === data.length - 1
+    ) {
       setIsSelectAll(true);
     }
     setSelectedIds({ ...selectedIds, [row.id]: !selectedIds[row.id] });
@@ -27,8 +45,11 @@ const Table = ({
   };
 
   const handleAllSelect = () => {
-    if (!isSelectAll) setSelectedIds(data.reduce((acc, { id }) => ({ ...acc, [id]: true }), {}));
-    else setSelectedIds({});
+    if (!isSelectAll) {
+      setSelectedIds(
+        data.reduce((acc, { id }) => ({ ...acc, [id]: true }), {}),
+      );
+    } else setSelectedIds({});
     setIsSelectAll(!isSelectAll);
   };
 
@@ -44,43 +65,46 @@ const Table = ({
               onChange={() => handleAllSelect()}
             />
           </TableCell>
-          {headCells.map((headCell) => (
-            headCell !== 'id' && (
+          {headCells.map(
+            (headCell) => headCell !== 'id' && (
             <TableCell
               key={headCell}
               align="left"
               padding="default"
               sortDirection={orderBy === headCell ? order : false}
             >
-              <TableSortLabel
-                active={orderBy === headCell}
-              >
+              <TableSortLabel active={orderBy === headCell}>
                 {headCell}
               </TableSortLabel>
             </TableCell>
-            )
-          ))}
+            ),
+          )}
         </TableRow>
       </TableHead>
       <TableBody>
-        {data
-          .map((row) => (
-            <TableRow
-              hover
-              // onClick={() => handleRowSelect(row)}
-              key={row.id}
-              // selected={isSelectAll || selectedIds[row.id]}
-            >
-              <TableCell padding="checkbox">
-                <Checkbox
-                  checked={isSelectAll || !!selectedIds[row.id]}
-                  // value={isSelectAll || selectedIds[row.id]}
-                  onChange={() => handleRowSelect(row)}
-                />
+        {data.map((row) => (
+          <TableRow
+            hover
+            onDoubleClick={() => onRowDoubleClick(row.id)}
+            key={row.id}
+            // selected={isSelectAll || selectedIds[row.id]}
+          >
+            <TableCell padding="checkbox">
+              <Checkbox
+                checked={isSelectAll || !!selectedIds[row.id]}
+                // value={isSelectAll || selectedIds[row.id]}
+                onChange={() => handleRowSelect(row)}
+              />
+            </TableCell>
+            {headCells.map(
+              (headCell) => headCell !== 'id' && (
+              <TableCell padding="default" align="left">
+                {row[headCell]}
               </TableCell>
-              {headCells.map((headCell) => headCell !== 'id' && <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
-            </TableRow>
-          ))}
+              ),
+            )}
+          </TableRow>
+        ))}
       </TableBody>
     </MaterialTable>
   );
