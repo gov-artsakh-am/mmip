@@ -11,3 +11,9 @@
   color: #263238;
   font-size: 18px;
 }
+
+@media only screen and (min-width: 600px) {
+  header > div:first-child {
+    display: none !important;
+  }
+}
