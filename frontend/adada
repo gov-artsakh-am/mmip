@@ -1,0 +1,20 @@
+diff --git a/frontend/src/pages/PersonInfo/PersonInfo.js b/frontend/src/pages/PersonInfo/PersonInfo.js
+index 5416ae6..fa774f9 100644
+--- a/frontend/src/pages/PersonInfo/PersonInfo.js
++++ b/frontend/src/pages/PersonInfo/PersonInfo.js
+@@ -1,6 +1,7 @@
+ import { makeStyles, Tab, Tabs } from '@material-ui/core';
+ import React, { useState } from 'react';
+ import PersonMainInfo from '../../components/PersonMainInfo/PersonMainInfo';
++import api from '../../utils/Api'
+ 
+ const tabStyle = {
+   default_tab: {
+@@ -30,6 +31,7 @@ const PersonInfo = () => {
+   return (
+     <div className={classes.personInfo}>
+       <PersonMainInfo />
++      <button onClick={() => api.get('')}>aaaaaaa</button>
+       <Tabs
+         value={activeIndex}
+         indicatorColor="primary"

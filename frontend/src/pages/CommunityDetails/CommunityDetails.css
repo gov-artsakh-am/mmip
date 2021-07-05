@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.images {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 28px;
+    align-items: center;
+}
+
+.details{
+    display: grid;
+    grid: gap;
+    grid-gap: 12px;
+}
+
+.list {
+    display: flex;
+}
+
+.withMargin {
+    margin-bottom: 32px;
+}

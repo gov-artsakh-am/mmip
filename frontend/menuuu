@@ -1,0 +1,65 @@
+diff --git a/frontend/.eslintrc.js b/frontend/.eslintrc.js
+index a239c53..3e46eae 100644
+--- a/frontend/.eslintrc.js
++++ b/frontend/.eslintrc.js
+@@ -21,5 +21,8 @@ module.exports = {
+     ],
+     quotes: ['error', 'single'],
+     'react/prop-types': 0,
++    'jsx-a11y/click-events-have-key-events': 0,
++    'jsx-a11y/no-static-element-interactions': 0,
++    'react/jsx-one-expression-per-line': 0,
+   },
+ };
+diff --git a/frontend/src/components/AppSidebar/AppSidebar.css b/frontend/src/components/AppSidebar/AppSidebar.css
+index 129590c..5606694 100644
+--- a/frontend/src/components/AppSidebar/AppSidebar.css
++++ b/frontend/src/components/AppSidebar/AppSidebar.css
+@@ -34,6 +34,27 @@
+   font-weight: bold;
+ }
+ 
++.sidebarMenuItemContainer {
++  display: grid;
++  align-items: center;
++  justify-content: start;
++  grid-auto-flow: column;
++  grid-gap: 10px;
++}
++
++.withBorder {
++  padding-bottom: 20px;
++  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
++}
++
++.userInfoContainer {
++  display: grid;
++  grid-gap: 20px;
++  padding: 0 36px 24px;
++  position: absolute;
++  bottom: 0;
++}
++
+ @media only screen and (max-width: 600px) {
+   .AppSidebar {
+     position: static;
+diff --git a/frontend/src/components/AppSidebar/AppSidebar.js b/frontend/src/components/AppSidebar/AppSidebar.js
+index 0836b52..cb24090 100644
+--- a/frontend/src/components/AppSidebar/AppSidebar.js
++++ b/frontend/src/components/AppSidebar/AppSidebar.js
+@@ -3,6 +3,7 @@ import './AppSidebar.css';
+ import { useHistory, useLocation } from 'react-router';
+ import appLogoSvg from '../../assets/vectors/appLogo.svg';
+ import SidebarMenuItem from './SidebarMenuItem';
++import UserInfo from './UserInfo';
+ 
+ const menuItems = {
+   '/population': 'Բնակչություն',
+@@ -38,6 +39,7 @@ const AppSidebar = ({ onSelect = () => {} }) => {
+           alt="sidebarLogo"
+         />
+         {items}
++        <UserInfo firstName="Անուն" lastName="Ազգանուն" />
+       </div>
+     </>
+   );

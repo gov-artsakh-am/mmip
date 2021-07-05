@@ -14,12 +14,11 @@ const Table = ({
   orderBy,
   numSelected,
   rowCount,
-  loading = false,
+  loading,
   onRowDoubleClick,
 }) => {
   const [selectedIds, setSelectedIds] = useState({});
   const [isSelectAll, setIsSelectAll] = useState(false);
-  if (!data.length) return null;
 
   if (loading) {
     return (
@@ -28,6 +27,8 @@ const Table = ({
       />
     );
   }
+
+  if (!data.length) return null;
 
   const headCells = Object.keys(data[0]);
 
