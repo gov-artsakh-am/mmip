@@ -25,9 +25,9 @@ function PrivateRoute({ component: Component, ...rest }) {
       render={(props) => authed
         ? <div className="mainContainer">
           <AppBar position="static" color="transparent">
-            <Toolbar>
+          {!sm && <AppBarMenu />}
+              <Toolbar>
               {sm && <AppDrawer />}
-              <div style={{ flexGrow: 1 }} />
               <AppBarMenu />
             </Toolbar>
             {!sm && (

@@ -1,6 +1,25 @@
 .AppBarMenu {
+  width: 100%;
+  padding: 0 16px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.iconSection {
+  width: 24px;
+  height: 24px;
+  margin: 0 16px;
+}
+
+.iconSection:hover {
+  cursor: pointer;
+}
+
+.tools-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .appBarMenuAvatar {
