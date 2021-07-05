@@ -8,10 +8,10 @@ import logoutIcon from '../../assets/vectors/logout.svg';
 import { decodeToken } from '../../utils/jwt';
 
 const MENU_ITEMS = [{
-  icon: userSettingIcon,
+  icon: settingIcon,
   label: 'Օգտատիրոջ կարգավորումներ'
 }, {
-  icon: settingIcon,
+  icon: userSettingIcon,
   label: 'Կարգավորումներ'
 }, {
   icon: logoutIcon,
