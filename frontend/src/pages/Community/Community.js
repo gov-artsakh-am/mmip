@@ -6,7 +6,13 @@ import api from '../../utils/Api';
 const Community = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    api.get('api/main/', { table: 'Համայնք' }, ({ records }) => {
+    api.get('api/main/', {
+      table: 'Համայնք', agregations: [{
+        field: 'Բնակավայրեր', table: 'Բնակավայր'
+      }, {
+        field: 'Ղեկավար', table: 'Բնակիչ'
+      }]
+    }, ({ records }) => {
       const population = records.reduce((acc, { id, fields }) => {
         acc.push({
           id,

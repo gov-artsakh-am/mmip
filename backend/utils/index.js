@@ -6,7 +6,7 @@ const DB = 'app2R8cRirkeFZY8R';
 function buildRequestUrl(table, params, get = false) {
     let query = '?';
     params && Object.keys(params).forEach((key) => {
-        if (key != 'table') {
+        if (key != 'table' || key != 'agregations') {
             query += `${key}=${params[key]}`;
         }
     });
