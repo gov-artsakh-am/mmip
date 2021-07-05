@@ -13,6 +13,17 @@ async function getPropertyData(apiKey, table) {
     return await utils.buildRequest(apiKey, 'get', currentUrl, null)
 }
 
+function updateRecord(record, ags) {
+    ags.forEach((agregation) => {
+        if (record.fields[agregation.key]) {
+            record.fields[agregation.key] = record.fields[agregation.key].map((refId) => {
+                const current = agregation.value.find(({ id }) => id == refId);
+                return current ? current.fields : null;
+            }).filter((item) => item);
+        }
+    });
+}
+
 exports.post = function (req, res) {
     const table = req.body.table;
     const apiKey = req.apiKey;
@@ -30,17 +41,14 @@ exports.get = async function(req, res) {
         }));
         const url = utils.buildRequestUrl(table, req.query, true);
         utils.buildRequest(apiKey, 'get', url, null).then(({ data }) => {
-            data.records.map((record) => {
-                ags.forEach((agregation) => {
-                    if (record.fields[agregation.key]) {
-                        record.fields[agregation.key] = record.fields[agregation.key].map((refId) => {
-                            const current = agregation.value.find(({ id }) => id == refId);
-                            return current ? current.fields : null;
-                        }).filter((item) => item);
-                    }
+            if (data.records) {
+                data.records.map((record) => {
+                    updateRecord(record, ags);
+                    return record;
                 });
-                return record;
-            })
+            } else {
+                updateRecord(data, ags);
+            }
             res.status(200).json(data);
         }).catch(error => {
             res.status(400).json({ message: error.message });
