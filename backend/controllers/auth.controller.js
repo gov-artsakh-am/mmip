@@ -27,7 +27,14 @@ exports.signin = (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: user.id, apiKey: user.apiKey }, config.secret, {
+      const token = jwt.sign({
+        id: user.id,
+        apiKey: user.apiKey,
+        ssn: user.ssn,
+        name: user.name,
+        surname: user.surname,
+        role: user.role,
+      }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
 
