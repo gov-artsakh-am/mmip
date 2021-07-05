@@ -1,12 +1,12 @@
-import React from 'react';
-import { Avatar, makeStyles, Typography } from '@material-ui/core';
+import React from "react";
+import { Avatar, makeStyles, Typography } from "@material-ui/core";
 
-import { darkBlue } from '../../constants/colors';
+import { darkBlue } from "../../constants/colors";
 
 const useStyles = makeStyles(() => ({
   personMainInfo: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     marginBottom: 12,
   },
   avatar: {
@@ -37,7 +37,7 @@ const PersonMainInfo = () => {
   return (
     <div className={classes.personMainInfo}>
       <Avatar
-        src="https://i.pinimg.com/originals/92/0d/60/920d60db9c1a9088aa8f1538a84423d9.png"
+        src="https://image.freepik.com/free-photo/smiling-young-man-with-crossed-arms-outdoors_1140-255.jpg"
         className={classes.avatar}
       />
       <div className={classes.content}>

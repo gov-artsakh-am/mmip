@@ -48,10 +48,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const getTabContent = (index) => {
+const getTabContent = (index, isEditMode) => {
   switch (index) {
     case 0:
-      return <PersonalTab />;
+      return <PersonalTab editMode={isEditMode} />;
     default:
       return <p>Coming soon</p>;
   }
@@ -60,9 +60,20 @@ const getTabContent = (index) => {
 const PersonInfo = () => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [editMode, setEditMode] = useState(false);
 
   const getStyle = (isActive) =>
     isActive ? tabStyle.active_tab : tabStyle.default_tab;
+
+  let editButton = (
+    <Button
+      variant="outlined"
+      className={classes.editButton}
+      onClick={() => setEditMode((prev) => !prev)}
+    >
+      {editMode ? "Պահպանել" : "Խմբագրել"}
+    </Button>
+  );
 
   return (
     <div className={classes.personInfo}>
@@ -72,9 +83,7 @@ const PersonInfo = () => {
           <IconButton>
             <Delete fontSize="large" className={classes.deleteIcon} />
           </IconButton>
-          <Button variant="outlined" className={classes.editButton}>
-            Խմբագրել
-          </Button>
+          {editButton}
         </div>
       </div>
       <Tabs
@@ -100,7 +109,7 @@ const PersonInfo = () => {
         />
         <Tab label="Բժշկական քարտ" style={getStyle(activeIndex === 6)} />
       </Tabs>
-      {getTabContent(activeIndex)}
+      {getTabContent(activeIndex, editMode)}
     </div>
   );
 };
