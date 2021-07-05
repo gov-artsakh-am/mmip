@@ -22,7 +22,7 @@ exports.post = function (req, res) {
 exports.get = async function(req, res) {
     const table = req.query.table;
     const apiKey = req.apiKey;
-    const agregations = JSON.parse(req.query.agregations);
+    const agregations = JSON.parse(req.query.agregations || '[]');
     try {
         let ags = await Promise.all(agregations.map(async (relation) => {
             const value = await getPropertyData(apiKey, relation.table);
