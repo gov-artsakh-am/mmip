@@ -28,50 +28,52 @@ const Auth = () => {
       ssn: '',
       password: '',
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: (values) => {
       Api.post('api/auth/signin/', values,
         (data) => {
           localStorage.setItem('token', data.accessToken);
           history.replace('/population');
-        }, error => {
+        }, (error) => {
           alert('error :', error);
         });
     },
   });
-  return <div className="Auth">
-    <Card className="FormCard">
-      <Typography variant="h5" component="h2">
-        Մուտք գործեք Ձեր հաշիվ
-      </Typography>
-      <form onSubmit={formik.handleSubmit} className="signInForm">
-        <TextField
-          fullWidth
-          id="ssn"
-          name="ssn"
-          label="ՀԾՀ"
-          value={formik.values.ssn}
-          onChange={formik.handleChange}
-          error={formik.touched.ssn && Boolean(formik.errors.ssn)}
-          helperText={formik.touched.ssn && formik.errors.ssn}
-        />
-        <TextField
-          fullWidth
-          id="password"
-          name="password"
-          label="Գաղտնաբառ"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-        />
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          ՄՈՒՏՔ ԳՈՐԾԵԼ
-        </Button>
-      </form>
-    </Card>
-  </div>;
+  return (
+    <div className="Auth">
+      <Card className="FormCard">
+        <Typography variant="h5" component="h2">
+          Մուտք գործեք Ձեր հաշիվ
+        </Typography>
+        <form onSubmit={formik.handleSubmit} className="signInForm">
+          <TextField
+            fullWidth
+            id="ssn"
+            name="ssn"
+            label="ՀԾՀ"
+            value={formik.values.ssn}
+            onChange={formik.handleChange}
+            error={formik.touched.ssn && Boolean(formik.errors.ssn)}
+            helperText={formik.touched.ssn && formik.errors.ssn}
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Գաղտնաբառ"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            ՄՈՒՏՔ ԳՈՐԾԵԼ
+          </Button>
+        </form>
+      </Card>
+    </div>
+  );
 };
 
 export default Auth;

@@ -9,14 +9,14 @@ import { decodeToken } from '../../utils/jwt';
 
 const MENU_ITEMS = [{
   icon: settingIcon,
-  label: 'Օգտատիրոջ կարգավորումներ'
+  label: 'Օգտատիրոջ կարգավորումներ',
 }, {
   icon: userSettingIcon,
-  label: 'Կարգավորումներ'
+  label: 'Կարգավորումներ',
 }, {
   icon: logoutIcon,
   label: 'Ելք',
-  action: 'logout'
+  action: 'logout',
 }];
 
 function UserInfo() {
@@ -28,7 +28,7 @@ function UserInfo() {
       localStorage.removeItem('token');
       history.length = 1;
       history.replace('/');
-    }
+    },
   };
   return (
     <div className="userInfoContainer">
@@ -61,6 +61,6 @@ function UserInfo() {
       ))}
     </div>
   );
-};
+}
 
 export default UserInfo;

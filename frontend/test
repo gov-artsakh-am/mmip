@@ -1,0 +1,333 @@
+diff --git a/frontend/src/App.css b/frontend/src/App.css
+index 5ddc5c4..784ee57 100644
+--- a/frontend/src/App.css
++++ b/frontend/src/App.css
+@@ -2,6 +2,7 @@ html {
+   margin: 0;
+   padding: 0;
+   height: 100%;
++  background-color: #fcfcfc;
+ }
+ 
+ body {
+@@ -19,6 +20,15 @@ body {
+   display: flex;
+ }
+ 
++.routes {
++  flex-grow: 1;
++}
++
++.leftMargin {
++  width: 300px;
++  min-width: 300px;
++}
++
+ .appContent {
+   flex-grow: 1;
+   display: flex;
+diff --git a/frontend/src/components/Table/Table.js b/frontend/src/components/Table/Table.js
+index 2efdd02..b46f877 100644
+--- a/frontend/src/components/Table/Table.js
++++ b/frontend/src/components/Table/Table.js
+@@ -1,30 +1,47 @@
+-import React, { useState } from 'react';
+-import MaterialTable from '@material-ui/core/Table';
+-import TableBody from '@material-ui/core/TableBody';
+-import TableCell from '@material-ui/core/TableCell';
+-import TableHead from '@material-ui/core/TableHead';
+-import TableRow from '@material-ui/core/TableRow';
+-import TableSortLabel from '@material-ui/core/TableSortLabel';
+-import Checkbox from './Checkbox';
++import React, { useState } from "react";
++import MaterialTable from "@material-ui/core/Table";
++import TableBody from "@material-ui/core/TableBody";
++import TableCell from "@material-ui/core/TableCell";
++import TableHead from "@material-ui/core/TableHead";
++import TableRow from "@material-ui/core/TableRow";
++import TableSortLabel from "@material-ui/core/TableSortLabel";
++import Checkbox from "./Checkbox";
++import { CircularProgress } from "@material-ui/core";
+ 
+ const Table = ({
+-  data, order, orderBy, numSelected, rowCount,
++  data,
++  order,
++  onRowDoubleClick,
++  orderBy,
++  numSelected,
++  rowCount,
++  loading = false,
+ }) => {
+-  const [selectedIds] = useState(data.reduce((acc, row) => {
+-    acc[row.id] = false;
+-    return acc;
+-  }, {}));
++  const [selectedIds] = useState(
++    data.reduce((acc, row) => {
++      acc[row.id] = false;
++      return acc;
++    }, {})
++  );
+   if (!data.length) return null;
+ 
+   const headCells = Object.keys(data[0]);
+ 
+-  const handleRowSelect = () => {
++  const handleRowSelect = (row) => {
+     // TODO
+   };
+   const handleAllSelect = () => {
+     // TODO
+   };
+ 
++  if (loading) {
++    return (
++      <CircularProgress
++        style={{ display: "block", margin: "0 auto", marginTop: 100 }}
++      />
++    );
++  }
++
+   return (
+     <MaterialTable>
+       <TableHead>
+@@ -36,38 +53,47 @@ const Table = ({
+               onChange={() => handleAllSelect()}
+             />
+           </TableCell>
+-          {headCells.map((headCell) => (
+-            headCell != 'id' && <TableCell
+-              key={headCell}
+-              align="left"
+-              padding="default"
+-              sortDirection={orderBy === headCell ? order : false}
+-            >
+-              <TableSortLabel
+-                active={orderBy === headCell}
+-                // onClick={() => console.log('make api call for sorting by', headCell)}
+-              >
+-                {headCell}
+-              </TableSortLabel>
+-            </TableCell>
+-          ))}
++          {headCells.map(
++            (headCell) =>
++              headCell != "id" && (
++                <TableCell
++                  key={headCell}
++                  align="left"
++                  padding="default"
++                  sortDirection={orderBy === headCell ? order : false}
++                >
++                  <TableSortLabel
++                    active={orderBy === headCell}
++                    // onClick={() => console.log('make api call for sorting by', headCell)}
++                  >
++                    {headCell}
++                  </TableSortLabel>
++                </TableCell>
++              )
++          )}
+         </TableRow>
+       </TableHead>
+       <TableBody>
+-        {data
+-          .map((row) => (
+-            <TableRow
+-              hover
+-              onClick={() => handleRowSelect(row)}
+-              key={row.id}
+-              selected={selectedIds[row.id]}
+-            >
+-              <TableCell padding="checkbox">
+-                <Checkbox checked={row.isSelected} />
+-              </TableCell>
+-              {headCells.map((headCell) => headCell != 'id' && <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
+-            </TableRow>
+-          ))}
++        {data.map((row) => (
++          <TableRow
++            hover
++            onRowDoubleClick={() => onRowDoubleClick(row.id)}
++            key={row.id}
++            selected={selectedIds[row.id]}
++          >
++            <TableCell padding="checkbox">
++              <Checkbox checked={row.isSelected} />
++            </TableCell>
++            {headCells.map(
++              (headCell) =>
++                headCell != "id" && (
++                  <TableCell padding="default" align="left">
++                    {row[headCell]}
++                  </TableCell>
++                )
++            )}
++          </TableRow>
++        ))}
+       </TableBody>
+     </MaterialTable>
+   );
+diff --git a/frontend/src/pages/Auth/Auth.css b/frontend/src/pages/Auth/Auth.css
+index 918d865..fb78a12 100644
+--- a/frontend/src/pages/Auth/Auth.css
++++ b/frontend/src/pages/Auth/Auth.css
+@@ -1,7 +1,7 @@
+ .Auth {
+   height: 100%;
+   width: 100%;
+-  background: #3C8BD4;
++  background: #3c8bd4;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+diff --git a/frontend/src/pages/PersonInfo/PersonInfo.js b/frontend/src/pages/PersonInfo/PersonInfo.js
+index 5416ae6..4fc13a3 100644
+--- a/frontend/src/pages/PersonInfo/PersonInfo.js
++++ b/frontend/src/pages/PersonInfo/PersonInfo.js
+@@ -1,14 +1,16 @@
+-import { makeStyles, Tab, Tabs } from '@material-ui/core';
+-import React, { useState } from 'react';
+-import PersonMainInfo from '../../components/PersonMainInfo/PersonMainInfo';
++import { makeStyles, Tab, Tabs } from "@material-ui/core";
++import React, { useState } from "react";
++import PersonInfoField from "../../components/PersonInfoField/PersonInfoField";
++import PersonMainInfo from "../../components/PersonMainInfo/PersonMainInfo";
++import PersonalTab from "./Tabs/PersonalTab";
+ 
+ const tabStyle = {
+   default_tab: {
+-    color: 'black',
++    color: "black",
+   },
+   active_tab: {
+-    color: '#5B84D3',
+-    fontWeight: 'bold',
++    color: "#5B84D3",
++    fontWeight: "bold",
+   },
+ };
+ 
+@@ -17,15 +19,39 @@ const useStyles = makeStyles(() => ({
+     padding: 20,
+   },
+   indicator: {
+-    backgroundColor: '#5B84D3',
++    backgroundColor: "#5B84D3",
+   },
+ }));
+ 
++const getSelectedTab = (tabIndex) => {
++  switch (tabIndex) {
++    case 0:
++      return <PersonalTab />;
++    default:
++      return null;
++  }
++};
++
++const tabs = [
++  "Անձնական",
++  "Աշխատանք",
++  "Կրթություն",
++  "Ընտանիք",
++  "Սոցիալական կարգավիճակ",
++  "Զինվորական ծառայություն",
++  "Բժշկական քարտ",
++];
++
+ const PersonInfo = () => {
+   const classes = useStyles();
+   const [activeIndex, setActiveIndex] = useState(0);
+ 
+-  const getStyle = (isActive) => (isActive ? tabStyle.active_tab : tabStyle.default_tab);
++  const getStyle = (isActive) =>
++    isActive ? tabStyle.active_tab : tabStyle.default_tab;
++
++  const tabComponents = tabs.map((tab, i) => (
++    <Tab label={tab} key={tab} style={getStyle(activeIndex === i)} />
++  ));
+ 
+   return (
+     <div className={classes.personInfo}>
+@@ -39,20 +65,9 @@ const PersonInfo = () => {
+           indicator: classes.indicator,
+         }}
+       >
+-        <Tab label="Անձնական" style={getStyle(activeIndex === 0)} />
+-        <Tab label="Աշխատանք" style={getStyle(activeIndex === 1)} />
+-        <Tab label="Կրթություն" style={getStyle(activeIndex === 2)} />
+-        <Tab label="Ընտանիք" style={getStyle(activeIndex === 3)} />
+-        <Tab
+-          label="Սոցիալական կարգավիճակ"
+-          style={getStyle(activeIndex === 4)}
+-        />
+-        <Tab
+-          label="Զինվորական ծառայություն"
+-          style={getStyle(activeIndex === 5)}
+-        />
+-        <Tab label="Բժշկական քարտ" style={getStyle(activeIndex === 6)} />
++        {tabComponents}
+       </Tabs>
++      {getSelectedTab(activeIndex)}
+     </div>
+   );
+ };
+diff --git a/frontend/src/pages/Population/Population.js b/frontend/src/pages/Population/Population.js
+index d6aff6b..fab84e9 100644
+--- a/frontend/src/pages/Population/Population.js
++++ b/frontend/src/pages/Population/Population.js
+@@ -1,32 +1,39 @@
+-import React, { useEffect, useState } from 'react';
+-import Table from '../../components/Table/Table';
+-import './Population.css';
+-import api from '../../utils/Api';
++import React, { useEffect, useState } from "react";
++import Table from "../../components/Table/Table";
++import "./Population.css";
++import api from "../../utils/Api";
+ 
+ const Population = () => {
+   const [data, setData] = useState([]);
++  const [loading, setLoading] = useState(false);
++
+   useEffect(() => {
+-    api.get('api/main/', { table: 'Բնակիչ' }, ({ records }) => {
++    setLoading(true);
++
++    api.get("api/main/", { table: "Բնակիչ" }, ({ records }) => {
+       const population = records.reduce((acc, { fields, id }) => {
+         acc.push({
+           id,
+-          ՀԾՀ: fields['ՀԾՀ'] || '',
+-          Անուն: fields['Անուն'] || '',
+-          Ազգանուն: fields['Ազգանուն'] || '',
+-          Հայրանուն: fields['Հայրանուն'] || '',
+-          'Ծննդյան տարեթիվ': fields['Ծննդյան օր'] || '',
+-          Ընտանիք: fields['Ընտանիք'] || '', // missing
+-          'Գրանցման հասցե': fields['Գրանցման հասցե'] || '', // missing
++          ՀԾՀ: fields["ՀԾՀ"] || "",
++          Անուն: fields["Անուն"] || "",
++          Ազգանուն: fields["Ազգանուն"] || "",
++          Հայրանուն: fields["Հայրանուն"] || "",
++          "Ծննդյան տարեթիվ": fields["Ծննդյան օր"] || "",
++          Ընտանիք: fields["Ընտանիք"] || "", // missing
++          "Գրանցման հասցե": fields["Գրանցման հասցե"] || "", // missing
+         });
++
+         return acc;
+       }, []);
++
++      setLoading(false);
+       setData(population);
+     });
+   }, []);
+ 
+   return (
+     <div className="populationContainer">
+-      <Table data={data} />
++      <Table data={data} loading={loading} />
+     </div>
+   );
+ }
