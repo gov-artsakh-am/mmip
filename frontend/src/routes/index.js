@@ -4,6 +4,7 @@ import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
 
 import Auth from '../pages/Auth/Auth';
 import Population from '../pages/Population/Population';
+import Housing from '../pages/Housing/Housing';
 import Community from '../pages/Community/Community';
 import AppSidebar from '../components/AppSidebar/AppSidebar';
 import AppBarMenu from '../components/AppBarMenu/AppBarMenu';
@@ -51,6 +52,7 @@ function Routes() {
     <Switch>
       <PrivateRoute exact path="/population" component={Population} />
       <PrivateRoute exact path="/family" component={CommingSoon} />
+      <PrivateRoute exact path="/housing" component={Housing} />
       <PrivateRoute exact path="/community" component={Community} />
       <Route path="/" component={Auth} />
     </Switch>

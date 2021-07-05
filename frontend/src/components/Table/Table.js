@@ -10,19 +10,26 @@ import Checkbox from './Checkbox';
 const Table = ({
   data, order, orderBy, numSelected, rowCount,
 }) => {
-  const [selectedIds] = useState(data.reduce((acc, row) => {
-    acc[row.id] = false;
-    return acc;
-  }, {}));
+  const [selectedIds, setSelectedIds] = useState({});
+  const [isSelectAll, setIsSelectAll] = useState(false);
   if (!data.length) return null;
 
   const headCells = Object.keys(data[0]);
 
-  const handleRowSelect = () => {
-    // TODO
+  const handleRowSelect = (row) => {
+    if (isSelectAll) {
+      setIsSelectAll(false);
+    } else if (Object.values(selectedIds).filter(Boolean).length === data.length - 1) {
+      setIsSelectAll(true);
+    }
+    setSelectedIds({ ...selectedIds, [row.id]: !selectedIds[row.id] });
+    return true;
   };
+
   const handleAllSelect = () => {
-    // TODO
+    if (!isSelectAll) setSelectedIds(data.reduce((acc, { id }) => ({ ...acc, [id]: true }), {}));
+    else setSelectedIds({});
+    setIsSelectAll(!isSelectAll);
   };
 
   return (
@@ -32,12 +39,14 @@ const Table = ({
           <TableCell padding="checkbox">
             <Checkbox
               indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={rowCount > 0 && numSelected === rowCount}
+              checked={isSelectAll}
+              // value={isSelectAll}
               onChange={() => handleAllSelect()}
             />
           </TableCell>
           {headCells.map((headCell) => (
-            headCell != 'id' && <TableCell
+            headCell !== 'id' && (
+            <TableCell
               key={headCell}
               align="left"
               padding="default"
@@ -45,11 +54,11 @@ const Table = ({
             >
               <TableSortLabel
                 active={orderBy === headCell}
-                // onClick={() => console.log('make api call for sorting by', headCell)}
               >
                 {headCell}
               </TableSortLabel>
             </TableCell>
+            )
           ))}
         </TableRow>
       </TableHead>
@@ -58,14 +67,18 @@ const Table = ({
           .map((row) => (
             <TableRow
               hover
-              onClick={() => handleRowSelect(row)}
+              // onClick={() => handleRowSelect(row)}
               key={row.id}
-              selected={selectedIds[row.id]}
+              // selected={isSelectAll || selectedIds[row.id]}
             >
               <TableCell padding="checkbox">
-                <Checkbox checked={row.isSelected} />
+                <Checkbox
+                  checked={isSelectAll || !!selectedIds[row.id]}
+                  // value={isSelectAll || selectedIds[row.id]}
+                  onChange={() => handleRowSelect(row)}
+                />
               </TableCell>
-              {headCells.map((headCell) => headCell != 'id' && <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
+              {headCells.map((headCell) => headCell !== 'id' && <TableCell padding="default" align="left">{row[headCell]}</TableCell>)}
             </TableRow>
           ))}
       </TableBody>
